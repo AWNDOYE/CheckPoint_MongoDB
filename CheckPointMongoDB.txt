@@ -1,0 +1,92 @@
+db.contactList.insert({Nom:"Kefi",Prénom:"Seif", Email:"kefi@gmail.com", age:"15"})
+db.contactList.insert({Nom:"Ben Lahmer",Prénom:"Fares", Email:"fares@gmail.com", age:"26"})
+db.contactList.insert({Nom:"Fatnassi",Prénom:"Sarra", Email:"sarra.f@gmail.com", age:"40"})
+db.contactList.insert({Nom:"Ben Yahia",Prénom:"Rym", age:"4"})
+db.contactList.insert({Nom:"Awa",Prénom:"seck", Email:"awa.f@gmail.com", age:40})
+
+contact> db.contactList.find()
+Afficher toutes les informations relatives à une seule personne en utilisant son identifiant.
+
+contact> db.contactList.find({_id: ObjectId('65f4646044a15c6d23c6b374')})
+[
+  {
+    _id: ObjectId('65f4646044a15c6d23c6b374'),
+    Nom: 'Kefi',
+    'Prénom': 'Seif',
+    Email: 'kefi@gmail.com',
+    age: '15'
+  }
+]
+contact>
+
+Afficher tous les contacts dont l'âge est supérieur à 18 ans.
+
+contact> db.contactList.find({age:{ $gt: 18}})
+[
+  {
+    _id: ObjectId('65f463fe44a15c6d23c6b373'),
+    Nom: 'Ben Lahmer',
+    'Prénom': 'Fares',
+    Email: 'fares@gmail.com',
+    age: 26
+  },
+  {
+    _id: ObjectId('65f464f644a15c6d23c6b375'),
+    Nom: 'Fatnassi',
+    'Prénom': 'Sarra',
+    Email: 'sarra.f@gmail.com',
+    age: 40
+  }
+Afficher tous les contacts dont l'âge est supérieur à 18 ans et dont le nom contient "ah".
+contact> db.contactList.find({Nom :/ah/i, age:{$gt:18}})
+[
+  {
+    _id: ObjectId('65f463fe44a15c6d23c6b373'),
+    Nom: 'Ben Lahmer',
+    'Prénom': 'Fares',
+    Email: 'fares@gmail.com',
+    age: 26
+  }
+]
+
+Modifier le prénom du contact de "Kefi Seif" à "Kefi Anis".
+
+contact> db.contactList.updateOne({_id: ObjectId('65f4646044a15c6d23c6b374')}, {$set:{Prénom:"Anis"} })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Supprimez les contacts dont l'âge est inférieur à 5 ans.
+contact> db.contactList.deleteMany({age:{$lt:5}})
+{ acknowledged: true, deletedCount: 2 }
+contact>
+
+Affichez toute la liste des contacts.
+contact> db.contactList.find()
+[
+  {
+    _id: ObjectId('65f4646044a15c6d23c6b374'),
+    Nom: 'Kefi',
+    'Prénom': 'Anis',
+    Email: 'kefi@gmail.com',
+    age: 15
+  },
+  {
+    _id: ObjectId('65f464f644a15c6d23c6b375'),
+    Nom: 'Fatnassi',
+    'Prénom': 'Sarra',
+    Email: 'sarra.f@gmail.com',
+    age: 40
+  },
+  {
+    _id: ObjectId('65f4764044a15c6d23c6b379'),
+    Nom: 'Ben Lahmer',
+    'Prénom': 'Fares',
+    Email: 'fares@gmail.com',
+    age: 26
+  }
+]
+contact>
